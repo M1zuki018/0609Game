@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -2992366126759144599}
   m_Layer: 0
   m_Name: Mushroom
-  m_TagString: Untagged
+  m_TagString: takinoko
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,8 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d35efe623b355d46965eb96a20e23e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  scoreManager: {fileID: 0}
   score: 2
   isMushroom: 1
   isBamboo: 0
