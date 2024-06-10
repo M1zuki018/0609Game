@@ -22,45 +22,19 @@ public class SpawnPlantsRandom : SpawnBase
             {
                 var spawnBoxCollider = spawnCollider as BoxCollider2D;
 
-                objectInstance = Instantiate(spawnObj, RandomPosInCollider(spawnBoxCollider), Quaternion.identity, transform);
+                objectInstance = Instantiate(spawnObj, spawnBoxCollider.RandomPosInCollider(), Quaternion.identity, transform);
 
             }
             if (spawnCollider as CircleCollider2D)
             {
                 var spawnCircleCollider = spawnCollider as CircleCollider2D;
 
-                objectInstance = Instantiate(spawnObj, RandomPosInCollider(spawnCircleCollider), Quaternion.identity, transform);
+                objectInstance = Instantiate(spawnObj, spawnCircleCollider.RandomPosInCollider(), Quaternion.identity, transform);
             }
 
             if (onDestroyOverMinInterval) Destroy(objectInstance, minInterval);
         }
     }
-
-    Vector3 RandomPosInCollider(BoxCollider2D collider)
-    {
-        var bounds = collider.bounds;
-
-        Vector3 min = bounds.min;
-        Vector3 max = bounds.max;
-
-        var x = Random.Range(min.x, max.x);
-        var y = Random.Range(min.y, max.y);
-
-        var pos = new Vector3(x, y);
-        return pos;
-    }
-
-
-    Vector3 RandomPosInCollider(CircleCollider2D collider)
-    {
-        Vector3 offset = (Vector3)collider.offset + transform.position;
-        var radius = collider.radius;
-
-        var pos = Quaternion.Euler(0, 0, Random.Range(0, 360)) * new Vector3(Random.Range(0, radius), 0) + offset;
-
-        return pos;
-    }
-
 
     T GetRandomElementOfTwo<T>(T[] array, float weight = 0.5f)
     {
