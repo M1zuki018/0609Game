@@ -4,60 +4,37 @@ using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class RandomGrowPlants : MonoBehaviour
+public class SpawnPlantsRandom : SpawnBase
 {
-    [SerializeField] GameObject mushroom;
-    [SerializeField] GameObject bambooShoot;
-    [SerializeField] float minDelay;
-    [SerializeField] float maxDelay;
-
-    //[SerializeField] Vector2 spawnBoundsSize;
     [SerializeField] Collider2D spawnCollider;
-    [SerializeField] int spawnCount;
 
-    void Start()
-    {
-        Invoke(nameof(Spawn), Random.Range(minDelay, maxDelay));
-    }
-
-    void Spawn()
+    public override void Spawn()
     {
         Debug.Log("spawn");
 
         for (int i = 0; i < spawnCount; i++)
         {
             var Objects = new GameObject[] { mushroom, bambooShoot};
-            var spawnObj = GetRandomElement(Objects);
+            var spawnObj = GetRandomElementOfTwo(Objects, spawnWeight);
 
-
+            GameObject objectInstance = null;
             if (spawnCollider as BoxCollider2D)
             {
                 var spawnBoxCollider = spawnCollider as BoxCollider2D;
 
-                Instantiate(spawnObj, RandomPosInCollider(spawnBoxCollider), Quaternion.identity, transform);
+                objectInstance = Instantiate(spawnObj, RandomPosInCollider(spawnBoxCollider), Quaternion.identity, transform);
 
             }
             if (spawnCollider as CircleCollider2D)
             {
                 var spawnCircleCollider = spawnCollider as CircleCollider2D;
 
-                Instantiate(spawnObj, RandomPosInCollider(spawnCircleCollider), Quaternion.identity, transform);
+                objectInstance = Instantiate(spawnObj, RandomPosInCollider(spawnCircleCollider), Quaternion.identity, transform);
             }
+
+            if (onDestroyOverMinInterval) Destroy(objectInstance, minInterval);
         }
-
-        Invoke(nameof(Spawn), Random.Range(minDelay, maxDelay));
     }
-
-    /*Vector3 RandomPosInBox(Vector2 size)
-    {
-        float px = size.x / 2;
-        float py = size.y / 2;
-
-        var x = Random.Range(-px, px);
-        var y = Random.Range(-py, py);
-
-        return new Vector3(x, y);
-    }*/
 
     Vector3 RandomPosInCollider(BoxCollider2D collider)
     {
@@ -85,8 +62,21 @@ public class RandomGrowPlants : MonoBehaviour
     }
 
 
+    T GetRandomElementOfTwo<T>(T[] array, float weight = 0.5f)
+    {
+        if (Random.Range(0f, 1f) < weight)
+        {
+            return array[0];
+        }
+        else
+        {
+            return array[1];
+        }
+    }
+
     T GetRandomElement<T>(T[] array)
     {
         return array[Random.Range(0, array.Length)];
+
     }
 }
