@@ -11,12 +11,17 @@ public abstract class SpawnBase : MonoBehaviour
     [SerializeField, Min(0)] protected float minInterval, maxInterval;
     [SerializeField, Min(0)] protected int spawnCount;
     [SerializeField, Range(0, 1)] protected float spawnWeight;
-    [SerializeField] protected bool spawning, onDestroyOverMinInterval;
+    [SerializeField] protected bool onDestroyOverMinInterval, spawnOnStart;
 
     [SerializeField] protected float t, interval;
+    public bool spawning { get; set; }
 
     private void Start()
     {
+        if (spawnOnStart)
+        {
+            Spawn();
+        }
         Init();
     }
 
