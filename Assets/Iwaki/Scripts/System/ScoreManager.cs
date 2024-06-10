@@ -5,53 +5,53 @@ using UnityEngine.Events;
 
 public class ScoreManager : MonoBehaviour
 {
-    //protected static ScoreManager Instance;
     [SerializeField] Collider2D mushroomArea, bambooArea;
-    //protected static Collider2D MushroomArea => Instance.mushroomArea;
-    //protected static Collider2D BambooArea => Instance.bambooArea;
-
     [SerializeField] int score, mushroomCitizens, bambooCitizens;
-    public int Score { get => score; set { score = value; } }
 
-    //protected static int Score { get => Instance.score; set => Instance.score = value; }
-    //protected static int MushroomCitizens => Instance.mushroomCitizens;
-    //protected static int BambooCitizens => Instance.bambooCitizens;
+    protected static ScoreManager Instance;
+    protected static Collider2D MushroomArea => Instance.mushroomArea;
+    protected static Collider2D BambooArea => Instance.bambooArea;
 
-    //private void Awake()
-    //{
-    //    if (Instance != null && Instance != this)
-    //    {
-    //        Destroy(Instance);
-    //        Instance = this;
-            
-    //    }
-    //    else if(Instance == null)
-    //    {
-    //        Instance = this;
-    //    }
-    //}
-    public void AddScore(int point)
+    protected static int Score { get => Instance.score; set => Instance.score = value; }
+    protected static int MushroomCitizens { get => Instance.mushroomCitizens; set => Instance.mushroomCitizens = value; }
+    protected static int BambooCitizens { get => Instance.bambooCitizens; set => Instance.bambooCitizens = value; }
+
+    private void Awake()
     {
-        score += point;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance);
+            Instance = this;
+
+        }
+        else if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+    }
+    public static void AddScore(int point)
+    {
+        Score += point;
     }
 
-    public void AddMushrooms(int count)
+    public static void AddMushrooms(int count)
     {
-        mushroomCitizens += count;
+        MushroomCitizens += count;
     }
 
-    public void AddBamboo(int count)
+    public static void AddBamboo(int count)
     {
-        bambooCitizens += count;
+        BambooCitizens += count;
     }
 
-    public int GetContainsArea(Vector3 position)
+    public static int GetContainsArea(Vector3 position)
     {
-        if (mushroomArea.bounds.Contains(position))
+        if (MushroomArea.bounds.Contains(position))
         {
             return 0;
         }
-        else if (bambooArea.bounds.Contains(position))
+        else if (BambooArea.bounds.Contains(position))
         {
             return 1;
         }

@@ -36,11 +36,12 @@ public class ScoreController : MonoBehaviour
 
     public void CheckArea()
     {
-        if (scoreManager.GetContainsArea(transform.position) == 0)
+        if (ScoreManager.GetContainsArea(transform.position) == 0)
         {
             if (isMushroom)
             {
-                scoreManager.AddMushrooms(score);
+                ScoreManager.AddMushrooms(1);
+                ScoreManager.AddScore(score);
             }
             else if(isBamboo)
             {
@@ -49,11 +50,12 @@ public class ScoreController : MonoBehaviour
             Destroy(gameOverTimer);
             Destroy(this);
         }
-        else if (scoreManager.GetContainsArea(transform.position) == 1)
+        else if (ScoreManager.GetContainsArea(transform.position) == 1)
         {
             if (isBamboo)
             {
-                scoreManager.AddBamboo(score);
+                ScoreManager.AddBamboo(1);
+                ScoreManager.AddScore(score);
             }
             else if(isMushroom)
             {
