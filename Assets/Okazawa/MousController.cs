@@ -1,17 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class MousController : MonoBehaviour
 {
-    [SerializeField] Color[] m_animation = default;
-    BoxCollider2D mousCol;
-    SpriteRenderer m_sprite = default;
-    int m_animationindex;
-    Rigidbody2D m_rb;
+    Collider2D mousCol;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,8 +17,7 @@ public class MousController : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        mousCol = GetComponent<BoxCollider2D>();
-        m_sprite = GetComponent<SpriteRenderer>();
+        mousCol = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -48,6 +38,7 @@ public class MousController : MonoBehaviour
         {
             Debug.Log("Ç‡ÇÃÇÇÕÇ»Ç∑èàóù");
             mousCol.enabled = false;
+            
             gameObject.transform.DetachChildren();
         }
     }
