@@ -32,7 +32,7 @@ public abstract class SpawnBase : MonoBehaviour
             t += Time.deltaTime;
 
 
-            if (t > interval)
+            if (t > interval && GameManager.isPlaying)
             {
                 Spawn();
                 Init();

@@ -24,10 +24,13 @@ public class ScoreController : MonoBehaviour
 
     private void Update()
     {
-        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-        if (info.IsName("Walk") || info.IsName("Idle"))
+        if (GameManager.isPlaying)
         {
-            CheckArea();
+            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+            if (info.IsName("Walk") || info.IsName("Idle"))
+            {
+                CheckArea();
+            }
         }
     }
 

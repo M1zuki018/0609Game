@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,9 +5,11 @@ public class GameManager : MonoBehaviour
 {
     public UnityEvent gameStartEvent, gameEndEvent;
     public float gameTime, endTime;
+    public static bool isPlaying;
 
     public void GameStart()
     {
+        isPlaying = true;
         gameStartEvent.Invoke();
         gameObject.SetActive(true);
         gameTime = 0;
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(string message = null)
     {
-        if(message != null) Debug.Log(message);
+        if (message != null) Debug.Log(message);
         GameEnd();
     }
 
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public void GameEnd(string message = null)
     {
         if (message != null) Debug.Log(message);
+        isPlaying = false;
         gameEndEvent.Invoke();
         gameObject.SetActive(false);
     }

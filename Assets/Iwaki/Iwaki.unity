@@ -318,9 +318,9 @@ MonoBehaviour:
   bambooShoot: {fileID: 4973653587059269712, guid: 90be7fbc741510640af5d04bc9c7a9f2, type: 3}
   minInterval: 10
   maxInterval: 10
-  spawnCount: 1
+  spawnCount: 5
   spawnWeight: 0.5
-  onDestroyOverMinInterval: 1
+  onDestroyOverMinInterval: 0
   spawnOnStart: 1
   t: 0
   interval: 0
@@ -1348,7 +1348,7 @@ MonoBehaviour:
   maxInterval: 30
   spawnCount: 10
   spawnWeight: 0.5
-  onDestroyOverMinInterval: 1
+  onDestroyOverMinInterval: 0
   spawnOnStart: 0
   t: 0
   interval: 0

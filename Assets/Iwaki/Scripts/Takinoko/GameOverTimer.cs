@@ -17,7 +17,7 @@ public class GameOverTimer : MonoBehaviour
     {
         t += Time.deltaTime;
 
-        if (t > overTime && gameManager.gameObject.activeSelf)
+        if (t > overTime && GameManager.isPlaying)
         {
             gameManager.GameOver("GameOver(TimeOver)");
         }
