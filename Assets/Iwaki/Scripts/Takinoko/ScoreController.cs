@@ -30,7 +30,7 @@ public class ScoreController : MonoBehaviour
         if (GameManager.isPlaying)
         {
             AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-            if (info.IsName("Walk") || info.IsName("Idle"))
+            if (info.IsName("Walk") || info.IsName("Idle") || info.IsName("Drop"))
             {
                 AreaCheck();
             }
