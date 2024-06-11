@@ -12,9 +12,17 @@ public abstract class SpawnBase : MonoBehaviour
     [SerializeField, Min(0)] protected int spawnCount;
     [SerializeField, Range(0, 1)] protected float spawnWeight;
     [SerializeField] protected bool onDestroyOverMinInterval, spawnOnStart;
+    public bool Spawning { get; set; }
 
-    [SerializeField] protected float t, interval;
-    public bool spawning { get; set; }
+    [Header("Takinoko Settings")]
+    [SerializeField] bool attachTakinokoSettings;
+    [SerializeField] protected float speed, gameOverTimer;
+    [SerializeField] protected TurnInterval turnInterval;
+    [SerializeField] protected IdleDuration idleDuration;
+
+    [Header("Debug")]
+    [SerializeField] protected float t;
+    [SerializeField] protected float interval;
 
     private void Start()
     {
@@ -27,7 +35,7 @@ public abstract class SpawnBase : MonoBehaviour
 
     private void Update()
     {
-        if (spawning)
+        if (Spawning)
         {
             t += Time.deltaTime;
 
@@ -38,12 +46,26 @@ public abstract class SpawnBase : MonoBehaviour
                 Init();
             }
         }
+
     }
 
     public void Init()
     {
         t = 0;
         interval = Random.Range(minInterval, maxInterval);
+    }
+
+    public void CheckAndAttachTakinokoSettings(GameObject objectInstance)
+    {
+        if (attachTakinokoSettings)
+        {
+            var animator = objectInstance.GetComponent<TakinokoAnimation>();
+            animator.speed = speed;
+            animator.turnInterval = turnInterval;
+            animator.idleDuration = idleDuration;
+
+            objectInstance.GetComponent<GameOverTimer>().overTime = gameOverTimer;
+        }
     }
 
     public abstract void Spawn();

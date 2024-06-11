@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class Extends
@@ -16,29 +14,37 @@ public static class Extends
         return children;
     }
 
-    public static Vector3 RandomPosInCollider(this BoxCollider2D collider)
+    public static Vector3 RandomPosInCollider(this Collider2D collider)
     {
-        var bounds = collider.bounds;
+        if (collider as BoxCollider2D)
+        {
+            var box = (BoxCollider2D)collider;
 
-        Vector3 min = bounds.min;
-        Vector3 max = bounds.max;
+            var bounds = box.bounds;
 
-        var x = Random.Range(min.x, max.x);
-        var y = Random.Range(min.y, max.y);
+            Vector3 min = bounds.min;
+            Vector3 max = bounds.max;
 
-        var pos = new Vector3(x, y);
-        return pos;
-    }
+            var x = Random.Range(min.x, max.x);
+            var y = Random.Range(min.y, max.y);
 
+            var pos = new Vector3(x, y);
+            return pos;
+        }
 
-    public static Vector3 RandomPosInCollider(this CircleCollider2D collider)
-    {
-        Vector3 offset = (Vector3)collider.offset + collider.transform.position;
-        var radius = collider.radius;
+        if (collider as CircleCollider2D)
+        {
+            var circle = (CircleCollider2D)collider;
 
-        var pos = Quaternion.Euler(0, 0, Random.Range(0, 360)) * new Vector3(Random.Range(0, radius), 0) + offset;
+            Vector3 offset = (Vector3)circle.offset + circle.transform.position;
+            var radius = circle.radius;
 
-        return pos;
+            var pos = Quaternion.Euler(0, 0, Random.Range(0, 360)) * new Vector3(Random.Range(0, radius), 0) + offset;
+
+            return pos;
+        }
+
+        return Vector3.zero;
     }
 
     public static T GetRandomElementOfTwo<T>(this T[] array, float weight = 0.5f)

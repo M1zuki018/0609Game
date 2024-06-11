@@ -6,9 +6,9 @@ using Random = UnityEngine.Random;
 
 public class TakinokoAnimation : MonoBehaviour
 {
-    [SerializeField] float speed;
-    [SerializeField] TurnInterval turnInterval;
-    [SerializeField] IdleDuration idleDuration;
+    public float speed;
+    public TurnInterval turnInterval;
+    public IdleDuration idleDuration;
     [SerializeField] BoxCollider2D moveBounds;
 
     Animator animator;
@@ -123,13 +123,13 @@ public class TakinokoAnimation : MonoBehaviour
 }
 
 [Serializable]
-class TurnInterval
+public class TurnInterval
 {
     public float min, max;
 }
 
 [Serializable]
-class IdleDuration
+public class IdleDuration
 {
     public float min, max;
 }

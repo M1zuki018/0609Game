@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SpawnPlantsOnGrid : SpawnBase
 {
+    [Header("Settings")]
     [SerializeField] Transform spawnPosObjectParent;
 
     Transform[] posObjects;
@@ -22,6 +23,8 @@ public class SpawnPlantsOnGrid : SpawnBase
             var Objects = new GameObject[] { mushroom, bambooShoot };
             var spawnObj = Objects.GetRandomElementOfTwo(spawnWeight);
             var objectInstance = Instantiate(spawnObj, p, Quaternion.identity, transform);
+
+            CheckAndAttachTakinokoSettings(objectInstance);
 
             if (onDestroyOverMinInterval) Destroy(objectInstance, minInterval);
         }

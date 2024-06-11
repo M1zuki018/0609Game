@@ -1,7 +1,9 @@
+using UnityEditor;
 using UnityEngine;
 
 public class SpawnPlantsRandom : SpawnBase
 {
+    [Header("Settings")]
     [SerializeField] Collider2D spawnCollider;
 
     public override void Spawn()
@@ -14,19 +16,10 @@ public class SpawnPlantsRandom : SpawnBase
             var spawnObj = GetRandomElementOfTwo(Objects, spawnWeight);
 
             GameObject objectInstance = null;
-            if (spawnCollider as BoxCollider2D)
-            {
-                var spawnBoxCollider = spawnCollider as BoxCollider2D;
 
-                objectInstance = Instantiate(spawnObj, spawnBoxCollider.RandomPosInCollider(), Quaternion.identity, transform);
+            objectInstance = Instantiate(spawnObj, spawnCollider.RandomPosInCollider(), Quaternion.identity, transform);
 
-            }
-            if (spawnCollider as CircleCollider2D)
-            {
-                var spawnCircleCollider = spawnCollider as CircleCollider2D;
-
-                objectInstance = Instantiate(spawnObj, spawnCircleCollider.RandomPosInCollider(), Quaternion.identity, transform);
-            }
+            CheckAndAttachTakinokoSettings(objectInstance);
 
             if (onDestroyOverMinInterval) Destroy(objectInstance, minInterval);
         }
