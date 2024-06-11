@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class EventManager : MonoBehaviour
     int _countDown = 3;
     [SerializeField] GameObject _countDownArea;
     Text _countDownText;
+
+    [SerializeField] UnityEvent startEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +49,8 @@ public class EventManager : MonoBehaviour
             Destroy(_countDownArea);
             //入力制限を解除
             //たきのこを沸かせ始める
+            startEvent.Invoke();
+            Destroy(this);
         }
     }
 }

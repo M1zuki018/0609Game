@@ -35,6 +35,11 @@ public class ScoreManager : MonoBehaviour
         Score += point;
     }
 
+    public static int GetScore()
+    {
+        return Score;
+    }
+
     public static void AddMushrooms(int count)
     {
         MushroomCitizens += count;
