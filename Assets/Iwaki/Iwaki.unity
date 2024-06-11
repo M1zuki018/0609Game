@@ -256,7 +256,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 246494501}
         m_TargetAssemblyTypeName: SpawnBase, Assembly-CSharp
-        m_MethodName: set_spawning
+        m_MethodName: set_Spawning
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -271,7 +271,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 246494501}
         m_TargetAssemblyTypeName: SpawnBase, Assembly-CSharp
-        m_MethodName: set_spawning
+        m_MethodName: set_Spawning
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -316,12 +316,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroom: {fileID: 7001288386063079030, guid: 989e33c0a6d2b97478e17402810f2c2a, type: 3}
   bambooShoot: {fileID: 4973653587059269712, guid: 90be7fbc741510640af5d04bc9c7a9f2, type: 3}
-  minInterval: 10
+  minInterval: 5
   maxInterval: 10
   spawnCount: 5
   spawnWeight: 0.5
   onDestroyOverMinInterval: 0
   spawnOnStart: 1
+  attachTakinokoSettings: 1
+  speed: 2
+  gameOverTimer: 10000
+  turnInterval:
+    min: 0.1
+    max: 1
+  idleDuration:
+    min: 0
+    max: 0
   t: 0
   interval: 0
   spawnCollider: {fileID: 246494504}
@@ -1350,6 +1359,15 @@ MonoBehaviour:
   spawnWeight: 0.5
   onDestroyOverMinInterval: 0
   spawnOnStart: 0
+  attachTakinokoSettings: 0
+  speed: 0
+  gameOverTimer: 0
+  turnInterval:
+    min: 0
+    max: 0
+  idleDuration:
+    min: 0
+    max: 0
   t: 0
   interval: 0
   spawnPosObjectParent: {fileID: 1699125324}
