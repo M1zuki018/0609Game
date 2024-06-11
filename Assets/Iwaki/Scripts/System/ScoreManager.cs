@@ -20,7 +20,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(Instance);
+            Destroy(Instance.gameObject);
             Instance = this;
 
         }
