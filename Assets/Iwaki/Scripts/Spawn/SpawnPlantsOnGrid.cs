@@ -21,18 +21,18 @@ public class SpawnPlantsOnGrid : SpawnBase
         foreach (var p in spawnPos)
         {
             var Objects = new GameObject[] { mushroom, bambooShoot };
-            var spawnObj = Objects.GetRandomElementOfTwo(spawnWeight);
+            var spawnObj = Objects.GetRandomElementOfTwo(takinokoSetting.spawnWeight);
             var objectInstance = Instantiate(spawnObj, p, Quaternion.identity, transform);
 
             CheckAndAttachTakinokoSettings(objectInstance);
 
-            if (onDestroyOverMinInterval) Destroy(objectInstance, minInterval);
+            if (onDestroyOverMinInterval) Destroy(objectInstance, takinokoSetting.minInterval);
         }
     }
 
     void CreateSpawnPos()
     {
-        var spawnCount = Mathf.Min(this.spawnCount, posObjects.Length);
+        var spawnCount = Mathf.Min(takinokoSetting.spawnCount, posObjects.Length);
 
         var spawnedIndexes = new List<int>();
         spawnPos = new Vector3[spawnCount];

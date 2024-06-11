@@ -217,6 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 222676058}
   - component: {fileID: 222676059}
+  - component: {fileID: 222676060}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -283,6 +284,48 @@ MonoBehaviour:
         m_CallState: 2
   gameTime: 0
   endTime: 60
+--- !u!114 &222676060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222676057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd03af6b815e8dc41ac8a76e1c44ec49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawn: {fileID: 246494501}
+  settings:
+  - duration: 10
+    speed: 2
+    gameOverTimer: 10
+    minInterval: 5
+    maxInterval: 5
+    spawnCount: 3
+    spawnWeight: 0.5
+    turnInterval:
+      min: 0.5
+      max: 1
+    idleDuration:
+      min: 1
+      max: 1
+  - duration: 10
+    speed: 2
+    gameOverTimer: 10
+    minInterval: 5
+    maxInterval: 5
+    spawnCount: 4
+    spawnWeight: 0.5
+    turnInterval:
+      min: 0.5
+      max: 1
+    idleDuration:
+      min: 1
+      max: 1
+  t: 0
+  index: 0
 --- !u!1 &246494500
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,21 +359,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroom: {fileID: 7001288386063079030, guid: 989e33c0a6d2b97478e17402810f2c2a, type: 3}
   bambooShoot: {fileID: 4973653587059269712, guid: 90be7fbc741510640af5d04bc9c7a9f2, type: 3}
-  minInterval: 5
-  maxInterval: 10
-  spawnCount: 5
-  spawnWeight: 0.5
   onDestroyOverMinInterval: 0
   spawnOnStart: 1
   attachTakinokoSettings: 1
-  speed: 4
-  gameOverTimer: 10000
-  turnInterval:
-    min: 0.1
-    max: 1
-  idleDuration:
-    min: 0
-    max: 1
+  takinokoSetting:
+    duration: 0
+    speed: 0
+    gameOverTimer: 0
+    minInterval: 0
+    maxInterval: 0
+    spawnCount: 0
+    spawnWeight: 0
+    turnInterval:
+      min: 0
+      max: 0
+    idleDuration:
+      min: 0
+      max: 0
   t: 0
   interval: 0
   spawnCollider: {fileID: 246494504}
@@ -1353,21 +1398,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroom: {fileID: 7001288386063079030, guid: 989e33c0a6d2b97478e17402810f2c2a, type: 3}
   bambooShoot: {fileID: 4973653587059269712, guid: 90be7fbc741510640af5d04bc9c7a9f2, type: 3}
-  minInterval: 30
-  maxInterval: 30
-  spawnCount: 10
-  spawnWeight: 0.5
   onDestroyOverMinInterval: 0
   spawnOnStart: 0
   attachTakinokoSettings: 0
-  speed: 0
-  gameOverTimer: 0
-  turnInterval:
-    min: 0
-    max: 0
-  idleDuration:
-    min: 0
-    max: 0
+  takinokoSetting:
+    duration: 0
+    speed: 0
+    gameOverTimer: 0
+    minInterval: 0
+    maxInterval: 0
+    spawnCount: 0
+    spawnWeight: 0
+    turnInterval:
+      min: 0
+      max: 0
+    idleDuration:
+      min: 0
+      max: 0
   t: 0
   interval: 0
   spawnPosObjectParent: {fileID: 1699125324}

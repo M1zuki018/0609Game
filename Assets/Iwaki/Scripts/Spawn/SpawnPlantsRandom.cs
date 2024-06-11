@@ -10,10 +10,10 @@ public class SpawnPlantsRandom : SpawnBase
     {
         Debug.Log("spawn");
 
-        for (int i = 0; i < spawnCount; i++)
+        for (int i = 0; i < takinokoSetting.spawnCount; i++)
         {
             var Objects = new GameObject[] { mushroom, bambooShoot };
-            var spawnObj = GetRandomElementOfTwo(Objects, spawnWeight);
+            var spawnObj = GetRandomElementOfTwo(Objects, takinokoSetting.spawnWeight);
 
             GameObject objectInstance = null;
 
@@ -21,7 +21,7 @@ public class SpawnPlantsRandom : SpawnBase
 
             CheckAndAttachTakinokoSettings(objectInstance);
 
-            if (onDestroyOverMinInterval) Destroy(objectInstance, minInterval);
+            if (onDestroyOverMinInterval) Destroy(objectInstance, takinokoSetting.minInterval);
         }
     }
 
