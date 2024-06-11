@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class SpawnPlantsRandom : SpawnBase
 {
@@ -14,7 +10,7 @@ public class SpawnPlantsRandom : SpawnBase
 
         for (int i = 0; i < spawnCount; i++)
         {
-            var Objects = new GameObject[] { mushroom, bambooShoot};
+            var Objects = new GameObject[] { mushroom, bambooShoot };
             var spawnObj = GetRandomElementOfTwo(Objects, spawnWeight);
 
             GameObject objectInstance = null;

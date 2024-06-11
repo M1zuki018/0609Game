@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    [SerializeField] string _gameScene;
-    [SerializeField] string _titleScene;
-    [SerializeField] string _resultScene;
+    string _gameScene = "Game";
+    string _titleScene = "Title";
+    string _resultScene = "Result";
 
     public void Scene() //タイトル→ゲーム画面、リトライ用
     {

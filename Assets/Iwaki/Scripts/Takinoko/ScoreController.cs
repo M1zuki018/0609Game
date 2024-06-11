@@ -16,10 +16,13 @@ public class ScoreController : MonoBehaviour
 
     private void Start()
     {
-        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        animator = GetComponent<Animator>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gameOverTimer = GetComponent<GameOverTimer>();
+        if (GameManager.isPlaying)
+        {
+            scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+            animator = GetComponent<Animator>();
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameOverTimer = GetComponent<GameOverTimer>();
+        }
     }
 
     private void Update()
@@ -29,37 +32,41 @@ public class ScoreController : MonoBehaviour
             AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
             if (info.IsName("Walk") || info.IsName("Idle"))
             {
-                CheckArea();
+                AreaCheck();
             }
         }
     }
 
-    public void CheckArea()
+    private void AreaCheck()
     {
-        if (scoreManager.GetContainsArea(transform.position) == 0)
+        if (ScoreManager.GetContainsArea(transform.position) == 0)
         {
             if (isMushroom)
             {
-                scoreManager.AddMushrooms(score);
+                ScoreManager.AddMushrooms(1);
+                ScoreManager.AddScore(score);
             }
-            else if(isBamboo)
+            else if (isBamboo)
             {
                 gameManager.GameOver("GameOver(Wrong Sorting)");
             }
+            GetComponent<TakinokoAnimation>().GoalLeft();
             Destroy(gameOverTimer);
             Destroy(this);
         }
-        else if (scoreManager.GetContainsArea(transform.position) == 1)
+        else if (ScoreManager.GetContainsArea(transform.position) == 1)
         {
             if (isBamboo)
             {
-                scoreManager.AddBamboo(score);
+                ScoreManager.AddBamboo(1);
+                ScoreManager.AddScore(score);
             }
             else if(isMushroom)
             {
                 
                 gameManager.GameOver("GameOver(Wrong Sorting)");
             }
+            GetComponent<TakinokoAnimation>().GoalRight();
             Destroy(gameOverTimer);
             Destroy(this);
         }
