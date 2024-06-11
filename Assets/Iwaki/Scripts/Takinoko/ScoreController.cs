@@ -16,10 +16,13 @@ public class ScoreController : MonoBehaviour
 
     private void Start()
     {
-        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        animator = GetComponent<Animator>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        gameOverTimer = GetComponent<GameOverTimer>();
+        if (GameManager.isPlaying)
+        {
+            scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+            animator = GetComponent<Animator>();
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameOverTimer = GetComponent<GameOverTimer>();
+        }
     }
 
     private void Update()
@@ -29,12 +32,12 @@ public class ScoreController : MonoBehaviour
             AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
             if (info.IsName("Walk") || info.IsName("Idle"))
             {
-                CheckArea();
+                AreaCheck();
             }
         }
     }
 
-    public void CheckArea()
+    private void AreaCheck()
     {
         if (ScoreManager.GetContainsArea(transform.position) == 0)
         {
@@ -43,10 +46,11 @@ public class ScoreController : MonoBehaviour
                 ScoreManager.AddMushrooms(1);
                 ScoreManager.AddScore(score);
             }
-            else if(isBamboo)
+            else if (isBamboo)
             {
                 gameManager.GameOver("GameOver(Wrong Sorting)");
             }
+            GetComponent<TakinokoAnimation>().GoalLeft();
             Destroy(gameOverTimer);
             Destroy(this);
         }
@@ -62,6 +66,7 @@ public class ScoreController : MonoBehaviour
                 
                 gameManager.GameOver("GameOver(Wrong Sorting)");
             }
+            GetComponent<TakinokoAnimation>().GoalRight();
             Destroy(gameOverTimer);
             Destroy(this);
         }

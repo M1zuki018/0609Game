@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class GameOverTimer : MonoBehaviour
 {
@@ -11,15 +8,21 @@ public class GameOverTimer : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        if (GameManager.isPlaying)
+        {
+            gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        }
     }
     private void Update()
     {
-        t += Time.deltaTime;
-
-        if (t > overTime && GameManager.isPlaying)
+        if (GameManager.isPlaying)
         {
-            gameManager.GameOver("GameOver(TimeOver)");
+            t += Time.deltaTime;
+
+            if (t > overTime)
+            {
+                gameManager.GameOver("GameOver(TimeOver)");
+            }
         }
     }
 }
