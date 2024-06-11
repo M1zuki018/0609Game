@@ -1,9 +1,14 @@
+using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TakinokoAnimation : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] TurnInterval turnInterval;
+    [SerializeField] IdleDuration idleDuration;
     [SerializeField] BoxCollider2D moveBounds;
 
     Animator animator;
@@ -37,7 +42,7 @@ public class TakinokoAnimation : MonoBehaviour
                     var min = bounds.min;
                     var max = bounds.max;
 
-                    rb.velocity = Quaternion.Euler(0, 0, Random.Range(-45, 45)) * (moveBounds.bounds.center - transform.position).normalized * speed;
+                    rb.velocity = Quaternion.Euler(0, 0, Random.Range(-30, 30)) * (moveBounds.bounds.center - transform.position).normalized * speed;
 
                     isMovingCenter = true;
                 }
@@ -78,7 +83,7 @@ public class TakinokoAnimation : MonoBehaviour
         else if (state == 1)
         {
             //Debug.Log("ˆÚ“®");
-            var a = Random.insideUnitCircle.normalized;
+            var a = Quaternion.Euler(0, 0, Random.Range(-360, 360)) * (moveBounds.bounds.center - transform.position).normalized * speed;
             rb.velocity = a * speed;
         }
     }
@@ -93,11 +98,11 @@ public class TakinokoAnimation : MonoBehaviour
         Goal(speed);
     }
 
-    private void Goal(float xSpeed)
+    private void Goal(float speedX)
     {
         StopCoroutine(coroutine);
         animator.Play("Walk");
-        rb.velocity = new Vector2(xSpeed, 0);
+        rb.velocity = new Vector2(speedX, 0);
         Destroy(gameObject, 1);
         isGoal = true;
     }
@@ -106,13 +111,25 @@ public class TakinokoAnimation : MonoBehaviour
     IEnumerator Move()
     {
         SetMoveCondition(1);
-        var walkSeconds = Random.Range(0.1f, 3f);
+        var walkSeconds = Random.Range(turnInterval.min, turnInterval.max);
         yield return new WaitForSeconds(walkSeconds);
 
         SetMoveCondition(0);
-        var waitSeconds = Random.Range(1, 3);
+        var waitSeconds = Random.Range(idleDuration.min, idleDuration.max);
         yield return new WaitForSeconds(waitSeconds);
 
         coroutine = StartCoroutine(Move());
     }
+}
+
+[Serializable]
+class TurnInterval
+{
+    public float min, max;
+}
+
+[Serializable]
+class IdleDuration
+{
+    public float min, max;
 }
