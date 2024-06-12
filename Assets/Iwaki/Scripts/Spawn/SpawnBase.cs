@@ -8,13 +8,16 @@ public abstract class SpawnBase : MonoBehaviour
     //Min(n)...インスペクタから値を操作したとき、n以下にならない
     //Range(n,m)...インスペクタから値を操作したとき、値をn以上m以下に収める
     [SerializeField] protected GameObject mushroom, bambooShoot;
-    [SerializeField, Min(0)] protected float minInterval, maxInterval;
-    [SerializeField, Min(0)] protected int spawnCount;
-    [SerializeField, Range(0, 1)] protected float spawnWeight;
     [SerializeField] protected bool onDestroyOverMinInterval, spawnOnStart;
+    public bool Spawning { get; set; }
 
-    [SerializeField] protected float t, interval;
-    public bool spawning { get; set; }
+    [Space(16)]
+    public bool attachTakinokoSettings;
+    public TakinokoSetting takinokoSetting;
+
+    [Header("Debug")]
+    [SerializeField] protected float t;
+    [SerializeField] protected float interval;
 
     private void Start()
     {
@@ -27,7 +30,7 @@ public abstract class SpawnBase : MonoBehaviour
 
     private void Update()
     {
-        if (spawning)
+        if (Spawning)
         {
             t += Time.deltaTime;
 
@@ -38,12 +41,26 @@ public abstract class SpawnBase : MonoBehaviour
                 Init();
             }
         }
+
     }
 
     public void Init()
     {
         t = 0;
-        interval = Random.Range(minInterval, maxInterval);
+        interval = Random.Range(takinokoSetting.minInterval, takinokoSetting.maxInterval);
+    }
+
+    public void CheckAndAttachTakinokoSettings(GameObject objectInstance)
+    {
+        if (attachTakinokoSettings)
+        {
+            var animator = objectInstance.GetComponent<TakinokoAnimation>();
+            animator.speed = takinokoSetting.speed;
+            animator.turnInterval = takinokoSetting.turnInterval;
+            animator.idleDuration = takinokoSetting.idleDuration;
+
+            objectInstance.GetComponent<GameOverTimer>().overTime = takinokoSetting.gameOverTimer;
+        }
     }
 
     public abstract void Spawn();

@@ -1,34 +1,27 @@
+using UnityEditor;
 using UnityEngine;
 
 public class SpawnPlantsRandom : SpawnBase
 {
+    [Header("Settings")]
     [SerializeField] Collider2D spawnCollider;
 
     public override void Spawn()
     {
         Debug.Log("spawn");
 
-        for (int i = 0; i < spawnCount; i++)
+        for (int i = 0; i < takinokoSetting.spawnCount; i++)
         {
             var Objects = new GameObject[] { mushroom, bambooShoot };
-            var spawnObj = GetRandomElementOfTwo(Objects, spawnWeight);
+            var spawnObj = GetRandomElementOfTwo(Objects, takinokoSetting.spawnWeight);
 
             GameObject objectInstance = null;
-            if (spawnCollider as BoxCollider2D)
-            {
-                var spawnBoxCollider = spawnCollider as BoxCollider2D;
 
-                objectInstance = Instantiate(spawnObj, spawnBoxCollider.RandomPosInCollider(), Quaternion.identity, transform);
+            objectInstance = Instantiate(spawnObj, spawnCollider.RandomPosInCollider(), Quaternion.identity, transform);
 
-            }
-            if (spawnCollider as CircleCollider2D)
-            {
-                var spawnCircleCollider = spawnCollider as CircleCollider2D;
+            CheckAndAttachTakinokoSettings(objectInstance);
 
-                objectInstance = Instantiate(spawnObj, spawnCircleCollider.RandomPosInCollider(), Quaternion.identity, transform);
-            }
-
-            if (onDestroyOverMinInterval) Destroy(objectInstance, minInterval);
+            if (onDestroyOverMinInterval) Destroy(objectInstance, takinokoSetting.minInterval);
         }
     }
 

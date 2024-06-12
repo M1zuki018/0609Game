@@ -1,70 +1,85 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TakinokoAnimation : MonoBehaviour
 {
-    [SerializeField] float speed;
+    public float speed;
+    public TurnInterval turnInterval;
+    public IdleDuration idleDuration;
     [SerializeField] BoxCollider2D moveBounds;
 
-    Animator animator;
-    Rigidbody2D rb;
+    [SerializeField] Animator animator;
     Coroutine coroutine;
 
-    bool isGoal, isMovingCenter;
+    [SerializeField] bool isGoal, isMovingCenter, walkingRandom;
+
+    [SerializeField] Vector3 moveDir;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
         moveBounds = GameObject.Find("MoveBounds").GetComponent<BoxCollider2D>();
 
         coroutine = StartCoroutine(Move());
+        walkingRandom = true;
     }
 
     private void Update()
     {
-        var bounds = moveBounds.bounds;
-        //範囲外に行かない処理
-        if (!bounds.Contains(transform.position))
-        {
-            if (!isGoal && !isMovingCenter)
-            {
-                AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
-                if (info.IsName("Walk") || info.IsName("Idle"))
-                {
-                    StopCoroutine(coroutine);
+        transform.Translate(moveDir * Time.deltaTime);
 
+        if (!isGoal)
+        {
+            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+            if ((info.IsName("Walk") || info.IsName("Idle")) && !isMovingCenter)
+            {
+                walkingRandom = true;
+
+            }
+            else
+            {
+                walkingRandom = false;
+            }
+
+
+            var bounds = moveBounds.bounds;
+            //範囲外に行かない処理
+            if (!bounds.Contains(transform.position))
+            {
+                if ((walkingRandom || moveDir.magnitude == 0) && !info.IsName("Drag") && !info.IsName("Idle") && !info.IsName("Drop"))
+                {
                     var min = bounds.min;
                     var max = bounds.max;
 
-                    rb.velocity = Quaternion.Euler(0, 0, Random.Range(-45, 45)) * (moveBounds.bounds.center - transform.position).normalized * speed;
+                    moveDir = Quaternion.Euler(0, 0, Random.Range(-30, 30)) * (moveBounds.bounds.center - transform.position).normalized * speed;
 
                     isMovingCenter = true;
                 }
             }
-        }
-        else
-        {
-            if (isMovingCenter)
+            else
             {
-                coroutine = StartCoroutine(Move());
+                if (isMovingCenter)
+                {
+                    //coroutine = StartCoroutine(Move());
+                }
+                isMovingCenter = false;
             }
-            isMovingCenter = false;
         }
     }
 
     public void StartDrag()
     {
         animator.SetTrigger("StartDrag");
-        rb.velocity = Vector2.zero;
-        StopCoroutine(coroutine);
+        moveDir = Vector2.zero;
+        //StopCoroutine(coroutine);
     }
 
     public void StartDrop()
     {
         animator.SetTrigger("StartDrop");
-        rb.velocity = Vector2.zero;
-        coroutine = StartCoroutine(Move());
+        moveDir = Vector2.zero;
+        //coroutine = StartCoroutine(Move());
     }
 
     public void SetMoveCondition(int state)
@@ -73,13 +88,12 @@ public class TakinokoAnimation : MonoBehaviour
         if (state == 0)
         {
             //Debug.Log("停止");
-            rb.velocity = Vector2.zero;
+            moveDir = Vector2.zero;
         }
         else if (state == 1)
         {
             //Debug.Log("移動");
-            var a = Random.insideUnitCircle.normalized;
-            rb.velocity = a * speed;
+            moveDir = Quaternion.Euler(0, 0, Random.Range(-360, 360)) * (moveBounds.bounds.center - transform.position).normalized * speed;
         }
     }
 
@@ -93,11 +107,12 @@ public class TakinokoAnimation : MonoBehaviour
         Goal(speed);
     }
 
-    private void Goal(float xSpeed)
+    private void Goal(float speedX)
     {
-        StopCoroutine(coroutine);
+        //StopCoroutine(coroutine);
+        walkingRandom = false;
         animator.Play("Walk");
-        rb.velocity = new Vector2(xSpeed, 0);
+        moveDir = new Vector2(speedX, 0);
         Destroy(gameObject, 1);
         isGoal = true;
     }
@@ -105,14 +120,33 @@ public class TakinokoAnimation : MonoBehaviour
 
     IEnumerator Move()
     {
-        SetMoveCondition(1);
-        var walkSeconds = Random.Range(0.1f, 3f);
-        yield return new WaitForSeconds(walkSeconds);
+        while (walkingRandom && !isMovingCenter)
+        {
+            SetMoveCondition(1);
+            var walkSeconds = Random.Range(turnInterval.min, turnInterval.max);
+            yield return new WaitForSeconds(walkSeconds);
 
-        SetMoveCondition(0);
-        var waitSeconds = Random.Range(1, 3);
-        yield return new WaitForSeconds(waitSeconds);
+            SetMoveCondition(0);
+            var waitSeconds = Random.Range(idleDuration.min, idleDuration.max);
+            yield return new WaitForSeconds(waitSeconds);
+        }
 
-        coroutine = StartCoroutine(Move());
+
+        yield return new WaitUntil(() => walkingRandom);
+        yield return Move();
+
+        //coroutine = StartCoroutine(Move());
     }
+}
+
+[Serializable]
+public class TurnInterval
+{
+    public float min, max;
+}
+
+[Serializable]
+public class IdleDuration
+{
+    public float min, max;
 }

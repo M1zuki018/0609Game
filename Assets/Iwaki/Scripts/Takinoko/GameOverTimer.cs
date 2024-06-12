@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class GameOverTimer : MonoBehaviour
 {
-    [SerializeField] float overTime, t;
+    public float overTime;
+    [SerializeField] float t;
     GameManager gameManager;
 
 
