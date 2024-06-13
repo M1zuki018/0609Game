@@ -20,7 +20,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(Instance);
+            Destroy(Instance.gameObject);
             Instance = this;
 
         }
@@ -33,6 +33,11 @@ public class ScoreManager : MonoBehaviour
     public static void AddScore(int point)
     {
         Score += point;
+    }
+
+    public static int GetScore()
+    {
+        return Score;
     }
 
     public static void AddMushrooms(int count)

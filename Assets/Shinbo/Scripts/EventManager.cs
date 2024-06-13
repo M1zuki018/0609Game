@@ -1,41 +1,25 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
-    //インプットを制御しているオブジェクト、componentを取得
-    GameObject _startObj;
-    GameObject _managerObj;
-
-    //開始演出関連の宣言
     GameObject _rulePanel;
-    bool _isFirst;
+    //インプットを制御しているオブジェクト、componentを取得
+
     int _countDown = 3;
     [SerializeField] GameObject _countDownArea;
-    [SerializeField] GameObject _gameCanvas;
     Text _countDownText;
-    Main_SEController _seSource;
-    AudioSource _bgmas;
 
-    private void Awake()
-    {
-        _startObj = GameObject.Find("Start");
-        _startObj.SetActive(false);
-        _managerObj = GameObject.Find("GameManager");
-        _managerObj.SetActive(false);
-    }
+    [SerializeField] UnityEvent startEvent;
+
     // Start is called before the first frame update
     void Start()
     {
         _rulePanel = GameObject.Find("RuleExplanation");
+        //インプットを制御しているcomponent.enable = false;
         _countDownText = _countDownArea.GetComponent<Text>();
-        _gameCanvas.SetActive(false);
-
-        GameObject _bgmObj = GameObject.Find("BGM");
-        _bgmas = _bgmObj.GetComponent<AudioSource>();
-        GameObject _seObj = GameObject.Find("SE");
-        _seSource = _seObj.GetComponent<Main_SEController>();
     }
 
     // Update is called once per frame
@@ -44,14 +28,8 @@ public class EventManager : MonoBehaviour
         //クリックされたらパネルを非表示にする
         if (Input.GetButtonDown("Fire1"))
         {
-            if (!_isFirst)
-            {
-                _seSource.ClickSE();
-                _rulePanel.SetActive(false);
-                StartCoroutine("StartingPerformance");
-                _isFirst = true;
-            }
-            
+            _rulePanel.SetActive(false);
+            StartCoroutine("StartingPerformance");
         }
     }
 
@@ -68,12 +46,11 @@ public class EventManager : MonoBehaviour
         }
         else
         {
-            _seSource.GameStartSE();
-            _bgmas.Play();
             Destroy(_countDownArea);
-            _startObj.SetActive(true);
-            _managerObj.SetActive(true);
-            _gameCanvas.SetActive(true);
+            //入力制限を解除
+            //たきのこを沸かせ始める
+            startEvent.Invoke();
+            Destroy(this);
         }
     }
 }
