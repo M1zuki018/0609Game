@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -27,23 +28,44 @@ public class MousController : MonoBehaviour
         {
             Debug.Log("Ç‡ÇÃÇÇ¬Ç©Çﬁèàóù");
             mousCol.enabled = true;
+            StartCoroutine(UnenableCollider());
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             Debug.Log("Ç‡ÇÃÇÇÕÇ»Ç∑èàóù");
-            mousCol.enabled = false;
-            takinoCol.enabled = true;
+            //mousCol.enabled = false;
+            if (takinoCol != null)
+            {
+                var animation = takinoCol.GetComponent<TakinokoAnimation>();
+                animation.StartDrop();
+
+                takinoCol.enabled = true;
+            }
             gameObject.transform.DetachChildren();
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "takinoko" && chil.transform.childCount == 0) 
+        if (collision.gameObject.tag == "takinoko" && chil.transform.childCount == 0 && collision.GetComponent<TakinokoAnimation>().isGoal == false)
         {
             takinoCol = collision.GetComponent<Collider2D>();
             collision.transform.parent = gameObject.transform;
             collision.enabled = false;
+
+            var animation = collision.GetComponent<TakinokoAnimation>();
+            animation.StartDrag();
         }
+    }
+
+    public IEnumerator UnenableCollider()
+    {
+        yield return new WaitForFixedUpdate();
+        mousCol.enabled = false;
+    }
+
+    public void SetMouseVisible(bool visible)
+    {
+        Cursor.visible = visible;
     }
 }

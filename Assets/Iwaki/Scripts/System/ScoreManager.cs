@@ -8,13 +8,13 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] Collider2D mushroomArea, bambooArea;
     [SerializeField] int score, mushroomCitizens, bambooCitizens;
 
-    protected static ScoreManager Instance;
-    protected static Collider2D MushroomArea => Instance.mushroomArea;
-    protected static Collider2D BambooArea => Instance.bambooArea;
+    private static ScoreManager Instance;
+    private static Collider2D MushroomArea => Instance.mushroomArea;
+    private static Collider2D BambooArea => Instance.bambooArea;
 
-    protected static int Score { get => Instance.score; set => Instance.score = value; }
-    protected static int MushroomCitizens { get => Instance.mushroomCitizens; set => Instance.mushroomCitizens = value; }
-    protected static int BambooCitizens { get => Instance.bambooCitizens; set => Instance.bambooCitizens = value; }
+    public static int Score { get => Instance.score; set => Instance.score = value; }
+    private static int MushroomCitizens { get => Instance.mushroomCitizens; set => Instance.mushroomCitizens = value; }
+    private static int BambooCitizens { get => Instance.bambooCitizens; set => Instance.bambooCitizens = value; }
 
     private void Awake()
     {
@@ -22,13 +22,12 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(Instance.gameObject);
             Instance = this;
-
         }
         else if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this);
         }
+        DontDestroyOnLoad(this);
     }
     public static void AddScore(int point)
     {
@@ -37,7 +36,7 @@ public class ScoreManager : MonoBehaviour
 
     public static int GetScore()
     {
-        return Score;
+            return Score;
     }
 
     public static void AddMushrooms(int count)
