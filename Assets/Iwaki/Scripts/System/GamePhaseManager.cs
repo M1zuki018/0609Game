@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameProcesser : MonoBehaviour
+public class GamePhaseManager : MonoBehaviour
 {
     [SerializeField] SpawnBase spawn;
     [SerializeField] TakinokoSetting[] settings;

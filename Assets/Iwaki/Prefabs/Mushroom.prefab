@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -2992366126759144599}
   - component: {fileID: -3978333632034832025}
   - component: {fileID: 8172094098460499914}
+  - component: {fileID: -8490019195450873589}
   m_Layer: 0
   m_Name: Mushroom
   m_TagString: takinoko
@@ -131,11 +132,12 @@ MonoBehaviour:
     min: 0
     max: 0
   moveBounds: {fileID: 0}
+  rb: {fileID: -8490019195450873589}
   animator: {fileID: 4696478896845510930}
   isGoal: 0
   isMovingCenter: 0
   walkingRandom: 0
-  moveDir: {x: 0, y: 0, z: 0}
+  moveVector: {x: 0, y: 0, z: 0}
 --- !u!114 &7534437800617126416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +210,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -223,15 +225,42 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.16458622, y: -0.72922677}
-      - {x: 0.22903985, y: -0.7308532}
-      - {x: 0.21211301, y: 0.005526455}
-      - {x: 0.50962424, y: 0.0141758695}
+    - - {x: -0.23874174, y: -0.7292268}
+      - {x: 0.24139918, y: -0.7308529}
+      - {x: 0.23683172, y: -0.025371768}
+      - {x: 0.47872597, y: 0.0141758695}
       - {x: 0.5530697, y: 0.20881544}
       - {x: 0.34555945, y: 0.6487654}
       - {x: -0.0025664144, y: 0.74425757}
       - {x: -0.31300697, y: 0.6530713}
       - {x: -0.54887855, y: 0.2782833}
       - {x: -0.531269, y: 0.026094846}
-      - {x: -0.17002614, y: 0.0013325065}
+      - {x: -0.24418244, y: -0.02956608}
   m_UseDelaunayMesh: 0
+--- !u!50 &-8490019195450873589
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7001288386063079030}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
