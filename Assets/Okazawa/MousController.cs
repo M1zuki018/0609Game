@@ -33,7 +33,10 @@ public class MousController : MonoBehaviour
         {
             Debug.Log("‚à‚Ì‚ğ‚Í‚È‚·ˆ—");
             mousCol.enabled = false;
-            takinoCol.enabled = true;
+            if (takinoCol != null)
+            {
+                takinoCol.enabled = true;
+            }
             gameObject.transform.DetachChildren();
         }
     }

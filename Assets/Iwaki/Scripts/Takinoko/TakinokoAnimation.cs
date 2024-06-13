@@ -9,13 +9,13 @@ public class TakinokoAnimation : MonoBehaviour
     public TurnInterval turnInterval;
     public IdleDuration idleDuration;
     [SerializeField] BoxCollider2D moveBounds;
+    [SerializeField] Rigidbody2D rb;
 
     [SerializeField] Animator animator;
     Coroutine coroutine;
 
     [SerializeField] bool isGoal, isMovingCenter, walkingRandom;
-
-    [SerializeField] Vector3 moveDir;
+    [SerializeField] Vector3 moveVector;
 
     private void Start()
     {
@@ -27,7 +27,8 @@ public class TakinokoAnimation : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(moveDir * Time.deltaTime);
+        //transform.Translate(moveDir * Time.deltaTime);
+        rb.velocity = moveVector;
 
         if (!isGoal)
         {
@@ -47,22 +48,18 @@ public class TakinokoAnimation : MonoBehaviour
             //”ÍˆÍŠO‚És‚©‚È‚¢ˆ—
             if (!bounds.Contains(transform.position))
             {
-                if ((walkingRandom || moveDir.magnitude == 0) && !info.IsName("Drag") && !info.IsName("Idle") && !info.IsName("Drop"))
+                if ((walkingRandom || moveVector.magnitude == 0) && !info.IsName("Drag") && !info.IsName("Idle") && !info.IsName("Drop"))
                 {
                     var min = bounds.min;
                     var max = bounds.max;
 
-                    moveDir = Quaternion.Euler(0, 0, Random.Range(-30, 30)) * (moveBounds.bounds.center - transform.position).normalized * speed;
+                    moveVector = Quaternion.Euler(0, 0, Random.Range(-30, 30)) * (moveBounds.bounds.center - transform.position).normalized * speed;
 
                     isMovingCenter = true;
                 }
             }
             else
             {
-                if (isMovingCenter)
-                {
-                    //coroutine = StartCoroutine(Move());
-                }
                 isMovingCenter = false;
             }
         }
@@ -71,15 +68,13 @@ public class TakinokoAnimation : MonoBehaviour
     public void StartDrag()
     {
         animator.SetTrigger("StartDrag");
-        moveDir = Vector2.zero;
-        //StopCoroutine(coroutine);
+        moveVector = Vector2.zero;
     }
 
     public void StartDrop()
     {
         animator.SetTrigger("StartDrop");
-        moveDir = Vector2.zero;
-        //coroutine = StartCoroutine(Move());
+        moveVector = Vector2.zero;
     }
 
     public void SetMoveCondition(int state)
@@ -88,12 +83,12 @@ public class TakinokoAnimation : MonoBehaviour
         if (state == 0)
         {
             //Debug.Log("’âŽ~");
-            moveDir = Vector2.zero;
+            moveVector = Vector2.zero;
         }
         else if (state == 1)
         {
             //Debug.Log("ˆÚ“®");
-            moveDir = Quaternion.Euler(0, 0, Random.Range(-360, 360)) * (moveBounds.bounds.center - transform.position).normalized * speed;
+            moveVector = Quaternion.Euler(0, 0, Random.Range(-360, 360)) * (moveBounds.bounds.center - transform.position).normalized * speed;
         }
     }
 
@@ -109,10 +104,9 @@ public class TakinokoAnimation : MonoBehaviour
 
     private void Goal(float speedX)
     {
-        //StopCoroutine(coroutine);
         walkingRandom = false;
         animator.Play("Walk");
-        moveDir = new Vector2(speedX, 0);
+        moveVector = new Vector2(speedX, 0);
         Destroy(gameObject, 1);
         isGoal = true;
     }
@@ -134,8 +128,6 @@ public class TakinokoAnimation : MonoBehaviour
 
         yield return new WaitUntil(() => walkingRandom);
         yield return Move();
-
-        //coroutine = StartCoroutine(Move());
     }
 }
 

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 794056295908158606}
   - component: {fileID: 2118516285308493022}
   - component: {fileID: 6424461508272074109}
+  - component: {fileID: -888843904820309518}
   m_Layer: 0
   m_Name: BambooShoots
   m_TagString: takinoko
@@ -131,11 +132,12 @@ MonoBehaviour:
     min: 0
     max: 0
   moveBounds: {fileID: 0}
+  rb: {fileID: -888843904820309518}
   animator: {fileID: 8999851271104523205}
   isGoal: 0
   isMovingCenter: 0
   walkingRandom: 0
-  moveDir: {x: 0, y: 0, z: 0}
+  moveVector: {x: 0, y: 0, z: 0}
 --- !u!114 &-5297583689191903626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,3 +249,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drag: 0
   drop: 0
+--- !u!50 &-888843904820309518
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973653587059269712}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
