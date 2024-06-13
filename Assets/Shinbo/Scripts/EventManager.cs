@@ -40,7 +40,7 @@ public class EventManager : MonoBehaviour
             if (!_isFirst)
             {
                 _rulePanel.SetActive(false);
-                _SEController.ClickSE();
+                //_SEController.ClickSE();
                 StartCoroutine("StartingPerformance");
                 _isFirst = true;
             }
@@ -55,8 +55,9 @@ public class EventManager : MonoBehaviour
 
         if (_countDown != 0)
         {
-            yield return new WaitForSeconds(1);
             _countDown--;
+            _SEController.ClickSE();
+            yield return new WaitForSeconds(1);
             StartCoroutine("StartingPerformance");
         }
         else
