@@ -141,4 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7798ae84a33d74418654c6405cba04f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameStart: {fileID: 0}
+  _gameStart: {fileID: 8300000, guid: 52a33468ab79c9b4a87f1ee94fcf7ed3, type: 3}

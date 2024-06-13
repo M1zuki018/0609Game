@@ -7,7 +7,12 @@ public class SceneChange : MonoBehaviour
     string _titleScene = "Title";
     string _resultScene = "Result";
 
-    public void Scene() //タイトル→ゲーム画面、リトライ用
+    public void GameScene()
+    {
+        Invoke("Scene", 1);
+    }
+
+    void Scene() //タイトル→ゲーム画面、リトライ用
     {
         if(_gameScene == string.Empty)
         {
@@ -17,7 +22,12 @@ public class SceneChange : MonoBehaviour
         SceneManager.LoadScene(_gameScene);
     }
 
-    public void BackTitel() //リザルト画面→タイトル画面用
+    public void TitleScene()
+    {
+        Invoke("BackTitle", 1);
+    }
+
+    void BackTitle() //リザルト画面→タイトル画面用
     {
         if (_titleScene == string.Empty)
         {
