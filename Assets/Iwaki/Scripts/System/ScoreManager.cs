@@ -22,13 +22,12 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(Instance.gameObject);
             Instance = this;
-
         }
         else if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this);
         }
+        DontDestroyOnLoad(this);
     }
     public static void AddScore(int point)
     {
