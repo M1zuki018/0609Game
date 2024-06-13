@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
     private static Collider2D MushroomArea => Instance.mushroomArea;
     private static Collider2D BambooArea => Instance.bambooArea;
 
-    private static int Score { get => Instance.score; set => Instance.score = value; }
+    public static int Score { get => Instance.score; set => Instance.score = value; }
     private static int MushroomCitizens { get => Instance.mushroomCitizens; set => Instance.mushroomCitizens = value; }
     private static int BambooCitizens { get => Instance.bambooCitizens; set => Instance.bambooCitizens = value; }
 
@@ -36,11 +36,7 @@ public class ScoreManager : MonoBehaviour
 
     public static int GetScore()
     {
-        if (Instance != null)
-        {
             return Score;
-        }
-        return 0;
     }
 
     public static void AddMushrooms(int count)
