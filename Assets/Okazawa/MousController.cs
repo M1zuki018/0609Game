@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MousController : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class MousController : MonoBehaviour
     public GameObject takinoko;
     Collider2D takinoCol;
     Transform chil;
+
+    [SerializeField] UnityEvent onDragEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +58,7 @@ public class MousController : MonoBehaviour
 
             var animation = collision.GetComponent<TakinokoAnimation>();
             animation.StartDrag();
+            onDragEvent.Invoke();
         }
     }
 
