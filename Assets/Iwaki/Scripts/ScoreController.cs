@@ -18,7 +18,6 @@ public class ScoreController : MonoBehaviour
     {
         if (GameManager.isPlaying)
         {
-            scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
             animator = GetComponent<Animator>();
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             gameOverTimer = GetComponent<GameOverTimer>();
@@ -39,7 +38,7 @@ public class ScoreController : MonoBehaviour
 
     private void AreaCheck()
     {
-        if (ScoreManager.GetContainsArea(transform.position) == 0)
+        if (AreaManager.GetContainsArea(Area.Mushroom, transform.position))
         {
             if (isMushroom)
             {
@@ -54,7 +53,7 @@ public class ScoreController : MonoBehaviour
             Destroy(gameOverTimer);
             Destroy(this);
         }
-        else if (ScoreManager.GetContainsArea(transform.position) == 1)
+        else if (AreaManager.GetContainsArea(Area.Bamboo, transform.position))
         {
             if (isBamboo)
             {

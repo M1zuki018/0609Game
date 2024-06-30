@@ -12,7 +12,7 @@ public class TakinokoAnimation : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
 
     [SerializeField] Animator animator;
-    Coroutine coroutine;
+    Coroutine moveCoroutine;
 
     public bool isGoal, isMovingCenter, walkingRandom;
     [SerializeField] Vector3 moveVector;
@@ -21,7 +21,7 @@ public class TakinokoAnimation : MonoBehaviour
     {
         moveBounds = GameObject.Find("MoveBounds").GetComponent<BoxCollider2D>();
 
-        coroutine = StartCoroutine(Move());
+        moveCoroutine = StartCoroutine(Move());
         walkingRandom = true;
     }
 
@@ -67,14 +67,14 @@ public class TakinokoAnimation : MonoBehaviour
 
     public void StartDrag()
     {
-        StopCoroutine(coroutine);
+        StopCoroutine(moveCoroutine);
         animator.SetTrigger("StartDrag");
         moveVector = Vector2.zero;
     }
 
     public void StartDrop()
     {
-        coroutine = StartCoroutine(Move());
+        moveCoroutine = StartCoroutine(Move());
         animator.SetTrigger("StartDrop");
         //moveVector = Vector2.zero;
     }
@@ -110,7 +110,7 @@ public class TakinokoAnimation : MonoBehaviour
 
     private void Goal(float speedX)
     {
-        StopCoroutine(coroutine);
+        StopCoroutine(moveCoroutine);
         isGoal = true;
         isMovingCenter = false;
         walkingRandom = false;
@@ -137,7 +137,7 @@ public class TakinokoAnimation : MonoBehaviour
 
 
         yield return new WaitUntil(() => walkingRandom);
-        coroutine = StartCoroutine(Move());
+        moveCoroutine = StartCoroutine(Move());
     }
 }
 
