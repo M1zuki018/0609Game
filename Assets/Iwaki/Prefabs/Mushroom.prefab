@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -2676080136367762655}
   - component: {fileID: 7534437800617126416}
   - component: {fileID: -2992366126759144599}
-  - component: {fileID: -3978333632034832025}
   - component: {fileID: 8172094098460499914}
   - component: {fileID: -8490019195450873589}
   m_Layer: 0
@@ -167,20 +166,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overTime: 10
   t: 0
---- !u!114 &-3978333632034832025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7001288386063079030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf1d1e46ca853d94896d69f9629887dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drag: 0
-  drop: 0
 --- !u!60 &8172094098460499914
 PolygonCollider2D:
   m_ObjectHideFlags: 0

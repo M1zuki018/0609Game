@@ -33,15 +33,12 @@ public abstract class SpawnBase : MonoBehaviour
         if (Spawning)
         {
             t += Time.deltaTime;
-
-
             if (t > interval)
             {
                 Spawn();
                 Init();
             }
         }
-
     }
 
     public void Init()
